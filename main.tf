@@ -6,7 +6,7 @@ region = "ap-south-1"
 resource "aws_instance" "one" {
   ami             = "ami-0fd05997b4dff7aac"
   instance_type   = "t2.micro"
-  key_name        = "jenkins-key"
+  key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
   availability_zone = "ap-south-1a"
   user_data       = <<EOF
@@ -25,7 +25,7 @@ EOF
 resource "aws_instance" "two" {
   ami             = "ami-0fd05997b4dff7aac"
   instance_type   = "t2.micro"
-  key_name        = "jenkins-key"
+  key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
   availability_zone = "ap-south-1b"
   user_data       = <<EOF
@@ -44,7 +44,7 @@ EOF
 resource "aws_instance" "three" {
   ami             = "ami-0fd05997b4dff7aac"
   instance_type   = "t2.micro"
-  key_name        = "jenkins-key"
+  key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
   availability_zone = "ap-south-1a"
   tags = {
@@ -55,7 +55,7 @@ resource "aws_instance" "three" {
 resource "aws_instance" "four" {
   ami             = "ami-0fd05997b4dff7aac"
   instance_type   = "t2.micro"
-  key_name        = "jenkins-key"
+  key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
   availability_zone = "ap-south-1b"
   tags = {
@@ -88,7 +88,7 @@ resource "aws_security_group" "five" {
 }
 
 resource "aws_s3_bucket" "six" {
-  bucket = "demoprojectofterraform-integration-127100"
+  bucket = "demoprojectofterraform-integration-127100asuydyfyugasdg68468476465464878484"
 }
 
 resource "aws_iam_user" "seven" {
@@ -106,6 +106,6 @@ resource "aws_ebs_volume" "eight" {
  availability_zone = "ap-south-1a"
   size = 10
   tags = {
-    Name = "terra-001"
+    Name = "terraaa-001"
   }
 }
