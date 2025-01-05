@@ -88,7 +88,7 @@ resource "aws_security_group" "five" {
 }
 
 resource "aws_s3_bucket" "six" {
-  bucket = "demoprojectofterraform-integration-127100asuydyfyugasdg68468476465464878484"
+  bucket = "mohitdemoprojectofterraform-integration-1271"
 }
 
 resource "aws_iam_user" "seven" {
@@ -99,13 +99,13 @@ name = each.value
 variable "user_names" {
 description = "*"
 type = set(string)
-default = ["user1", "user2", "user3", "user4"]
+default = ["mohit1", "rohit"]
 }
 
 resource "aws_ebs_volume" "eight" {
  availability_zone = "ap-south-1a"
   size = 10
   tags = {
-    Name = "terraaa-001"
+    Name = "terraform1-001"
   }
 }
