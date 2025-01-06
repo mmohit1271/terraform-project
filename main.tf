@@ -1,13 +1,13 @@
 provider "aws" {
-region = "ap-south-1"
+region = "eu-west-1"
 }
 
 resource "aws_instance" "one" {
-  ami             = "ami-0fd05997b4dff7aac"
+  ami             = "ami-0e9085e60087ce171"
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1a"
+  availability_zone = "eu-west-1a"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
@@ -22,11 +22,11 @@ EOF
 }
 
 resource "aws_instance" "two" {
-  ami             = "ami-0fd05997b4dff7aac"
+  ami             = "ami-0e9085e60087ce171"
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1c"
+  availability_zone = "eu-west-1b"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
@@ -41,22 +41,22 @@ EOF
 }
 
 resource "aws_instance" "three" {
-  ami             = "ami-0fd05997b4dff7aac"
+  ami             = "ami-0e9085e60087ce171"
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1b"
+  availability_zone = "eu-west-1c"
   tags = {
     Name = "app-server-1"
   }
 }
 
 resource "aws_instance" "four" {
-  ami             = "ami-0fd05997b4dff7aac"
+  ami             = "ami-0e9085e60087ce171"
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1c"
+  availability_zone = "eu-west-1c"
   tags = {
     Name = "app-server-2"
   }
@@ -87,7 +87,7 @@ resource "aws_security_group" "five" {
 }
 
 resource "aws_s3_bucket" "six" {
-  bucket = "mohitdemoprojectofterraform-integration-1271"
+  bucket = "mohit12demoprojectofterraform-integration-12"
 }
 
 resource "aws_iam_user" "seven" {
@@ -102,7 +102,7 @@ default = ["mohit1", "rohit1"]
 }
 
 resource "aws_ebs_volume" "eight" {
- availability_zone = "ap-south-1a"
+ availability_zone = "eu-west-1a"
   size = 10
   tags = {
     Name = "terraform1-001"
