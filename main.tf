@@ -119,7 +119,7 @@ resource "aws_ebs_volume" "nine" {
 }
 }
 
-resource "aws_ebs_volume" "nine" {
+resource "aws_ebs_volume" "ten" {
  availability_zone = "ap-south-1c"
   size = 8
   tags = {
