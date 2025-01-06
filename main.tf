@@ -26,7 +26,7 @@ resource "aws_instance" "two" {
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1c"
+  availability_zone = "ap-south-1b"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
@@ -56,7 +56,7 @@ resource "aws_instance" "four" {
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1c"
+  availability_zone = "ap-south-1a"
   tags = {
     Name = "app-server-2"
   }
