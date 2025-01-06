@@ -1,13 +1,13 @@
 provider "aws" {
-region = "eu-west-1"
+region = "ap-south-1"
 }
 
 resource "aws_instance" "one" {
-  ami             = "ami-0e9085e60087ce171"
+  ami             = "ami-0fd05997b4dff7aac"
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "eu-west-1a"
+  availability_zone = "ap-south-1a"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
@@ -22,11 +22,11 @@ EOF
 }
 
 resource "aws_instance" "two" {
-  ami             = "ami-0e9085e60087ce171"
+  ami             = "ami-0fd05997b4dff7aac"
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "eu-west-1b"
+  availability_zone = "ap-south-1c"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
@@ -41,22 +41,22 @@ EOF
 }
 
 resource "aws_instance" "three" {
-  ami             = "ami-0e9085e60087ce171"
+  ami             = "ami-0fd05997b4dff7aac"
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "eu-west-1c"
+  availability_zone = "ap-south-1b"
   tags = {
     Name = "app-server-1"
   }
 }
 
 resource "aws_instance" "four" {
-  ami             = "ami-0e9085e60087ce171"
+  ami             = "ami-0fd05997b4dff7aac"
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "eu-west-1c"
+  availability_zone = "ap-south-1c"
   tags = {
     Name = "app-server-2"
   }
@@ -86,7 +86,11 @@ resource "aws_security_group" "five" {
   }
 }
 
-resource "aws_iam_user" "six" {
+resource "aws_s3_bucket" "six" {
+  bucket = "mohitdemoprojectofterraform-integration-1271"
+}
+
+resource "aws_iam_user" "seven" {
 for_each = var.user_names
 name = each.value
 }
@@ -97,11 +101,10 @@ type = set(string)
 default = ["mohit1", "rohit1"]
 }
 
-resource "aws_ebs_volume" "seven" {
- availability_zone = "eu-west-1a"
+resource "aws_ebs_volume" "eight" {
+ availability_zone = "ap-south-1a"
   size = 10
   tags = {
     Name = "terraform1-001"
 }
 }
-
