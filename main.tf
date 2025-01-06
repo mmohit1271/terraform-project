@@ -11,21 +11,21 @@ data "aws_vpc" "default" {
 resource "aws_subnet" "default_a" {
   vpc_id                  = data.aws_vpc.default.id
   availability_zone       = "ap-south-1a"
-  cidr_block              = "10.1.0.0/20" # Adjust as needed
+  cidr_block              = "10.1.0.0/20" # Adjusted CIDR block
   map_public_ip_on_launch = true
 }
 
 resource "aws_subnet" "default_b" {
   vpc_id                  = data.aws_vpc.default.id
   availability_zone       = "ap-south-1b"
-  cidr_block              = "10.1.1.0/20" # Adjust as needed
+  cidr_block              = "10.1.16.0/20" # Adjusted CIDR block
   map_public_ip_on_launch = true
 }
 
 resource "aws_subnet" "default_c" {
   vpc_id                  = data.aws_vpc.default.id
   availability_zone       = "ap-south-1c"
-  cidr_block              = "10.1.2.0/20" # Adjust as needed
+  cidr_block              = "10.1.32.0/20" # Adjusted CIDR block
   map_public_ip_on_launch = true
 }
 
