@@ -1,38 +1,69 @@
 provider "aws" {
-  region = "ap-south-1"
+region = "ap-south-1"
 }
 
-# Data source for default VPC
-data "aws_vpc" "default" {
-  default = true
+resource "aws_instance" "one" {
+  ami             = "ami-0fd05997b4dff7aac"
+  instance_type   = "t2.micro"
+  key_name        = "server"
+  vpc_security_group_ids = [aws_security_group.five.id]
+  availability_zone = "ap-south-1a"
+  user_data       = <<EOF
+#!/bin/bash
+sudo -i
+yum install httpd -y
+systemctl start httpd
+chkconfig httpd on
+echo "hai all this is my app created by terraform infrastructurte by prashant sir server-1" > /var/www/html/index.html
+EOF
+  tags = {
+    Name = "web-server-1"
+  }
 }
 
-# Create subnets in each availability zone
-resource "aws_subnet" "default_a" {
-  vpc_id                  = data.aws_vpc.default.id
-  availability_zone       = "ap-south-1a"
-  cidr_block              = "172.31.16.0/20"  # Updated CIDR block
-  map_public_ip_on_launch = true
+resource "aws_instance" "two" {
+  ami             = "ami-0fd05997b4dff7aac"
+  instance_type   = "t2.micro"
+  key_name        = "server"
+  vpc_security_group_ids = [aws_security_group.five.id]
+  availability_zone = "ap-south-1c"
+  user_data       = <<EOF
+#!/bin/bash
+sudo -i
+yum install httpd -y
+systemctl start httpd
+chkconfig httpd on
+echo "hai all this is my website created by terraform infrastructurte by prashant sir server-2" > /var/www/html/index.html
+EOF
+  tags = {
+    Name = "web-server-2"
+  }
 }
 
-resource "aws_subnet" "default_b" {
-  vpc_id                  = data.aws_vpc.default.id
-  availability_zone       = "ap-south-1b"
-  cidr_block              = "172.31.32.0/20"  # Updated CIDR block
-  map_public_ip_on_launch = true
+resource "aws_instance" "three" {
+  ami             = "ami-0fd05997b4dff7aac"
+  instance_type   = "t2.micro"
+  key_name        = "server"
+  vpc_security_group_ids = [aws_security_group.five.id]
+  availability_zone = "ap-south-1b"
+  tags = {
+    Name = "app-server-1"
+  }
 }
 
-resource "aws_subnet" "default_c" {
-  vpc_id                  = data.aws_vpc.default.id
-  availability_zone       = "ap-south-1c"
-  cidr_block              = "172.31.48.0/20"  # Updated CIDR block
-  map_public_ip_on_launch = true
+resource "aws_instance" "four" {
+  ami             = "ami-0fd05997b4dff7aac"
+  instance_type   = "t2.micro"
+  key_name        = "server"
+  vpc_security_group_ids = [aws_security_group.five.id]
+  availability_zone = "ap-south-1c"
+  tags = {
+    Name = "app-server-2"
+  }
 }
 
-# Security Group
 resource "aws_security_group" "five" {
   name = "elb-sg"
-
   ingress {
     from_port   = 22
     to_port     = 22
@@ -55,105 +86,26 @@ resource "aws_security_group" "five" {
   }
 }
 
-# EC2 Instances
-resource "aws_instance" "one" {
-  ami                   = "ami-0fd05997b4dff7aac"
-  instance_type         = "t2.micro"
-  key_name              = "server"
-  subnet_id             = aws_subnet.default_a.id
-  vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone     = "ap-south-1a"
-  user_data             = <<EOF
-#!/bin/bash
-sudo -i
-yum install httpd -y
-systemctl start httpd
-chkconfig httpd on
-echo "hai all this is my app created by terraform infrastructurte by prashant sir server-1" > /var/www/html/index.html
-EOF
-
-  tags = {
-    Name = "web-server-1"
-  }
-
-  depends_on = [aws_subnet.default_a]
-}
-
-resource "aws_instance" "two" {
-  ami                   = "ami-0fd05997b4dff7aac"
-  instance_type         = "t2.micro"
-  key_name              = "server"
-  subnet_id             = aws_subnet.default_c.id
-  vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone     = "ap-south-1c"
-  user_data             = <<EOF
-#!/bin/bash
-sudo -i
-yum install httpd -y
-systemctl start httpd
-chkconfig httpd on
-echo "hai all this is my website created by terraform infrastructurte by prashant sir server-2" > /var/www/html/index.html
-EOF
-
-  tags = {
-    Name = "web-server-2"
-  }
-
-  depends_on = [aws_subnet.default_c]
-}
-
-resource "aws_instance" "three" {
-  ami                   = "ami-0fd05997b4dff7aac"
-  instance_type         = "t2.micro"
-  key_name              = "server"
-  subnet_id             = aws_subnet.default_b.id
-  vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone     = "ap-south-1b"
-
-  tags = {
-    Name = "app-server-1"
-  }
-
-  depends_on = [aws_subnet.default_b]
-}
-
-resource "aws_instance" "four" {
-  ami                   = "ami-0fd05997b4dff7aac"
-  instance_type         = "t2.micro"
-  key_name              = "server"
-  subnet_id             = aws_subnet.default_c.id
-  vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone     = "ap-south-1c"
-
-  tags = {
-    Name = "app-server-2"
-  }
-
-  depends_on = [aws_subnet.default_c]
-}
-
-# S3 Bucket
 resource "aws_s3_bucket" "six" {
   bucket = "mohitdemoprojectofterraform-integration-1271"
 }
 
-# IAM Users
 resource "aws_iam_user" "seven" {
-  for_each = var.user_names
-  name     = each.value
+for_each = var.user_names
+name = each.value
 }
 
 variable "user_names" {
-  description = "IAM user names"
-  type        = set(string)
-  default     = ["mohit1", "rohit1"]
+description = "*"
+type = set(string)
+default = ["mohit1", "rohit1"]
 }
 
-# EBS Volume
 resource "aws_ebs_volume" "eight" {
-  availability_zone = "ap-south-1a"
-  size              = 10
+ availability_zone = "ap-south-1a"
+  size = 10
   tags = {
     Name = "terraform1-001"
-  }
 }
+}
+
