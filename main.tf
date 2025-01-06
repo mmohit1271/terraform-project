@@ -27,7 +27,7 @@ resource "aws_instance" "two" {
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1b"
+  availability_zone = "ap-south-1c"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
@@ -46,7 +46,7 @@ resource "aws_instance" "three" {
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1a"
+  availability_zone = "ap-south-1b"
   tags = {
     Name = "app-server-1"
   }
@@ -57,7 +57,7 @@ resource "aws_instance" "four" {
   instance_type   = "t2.micro"
   key_name        = "server"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1b"
+  availability_zone = "ap-south-1c"
   tags = {
     Name = "app-server-2"
   }
@@ -99,13 +99,30 @@ name = each.value
 variable "user_names" {
 description = "*"
 type = set(string)
-default = ["mohit1", "rohit"]
+default = ["mohit1", "rohit1"]
 }
 
 resource "aws_ebs_volume" "eight" {
  availability_zone = "ap-south-1a"
-  size = 10
+  size = 8
   tags = {
     Name = "terraform1-001"
+}
+}
+
+resource "aws_ebs_volume" "nine" {
+ availability_zone = "ap-south-1b"
+  size = 8
+  tags = {
+    Name = "terraform1-002"
+
+}
+}
+
+resource "aws_ebs_volume" "nine" {
+ availability_zone = "ap-south-1c"
+  size = 8
+  tags = {
+    Name = "terraform1-003"
   }
 }
