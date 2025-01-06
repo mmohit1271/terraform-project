@@ -85,7 +85,8 @@ resource "aws_security_group" "five" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-resource "aws_iam_user" "seven" {
+
+resource "aws_iam_user" "six" {
 for_each = var.user_names
 name = each.value
 }
@@ -96,7 +97,7 @@ type = set(string)
 default = ["mohit1", "rohit1"]
 }
 
-resource "aws_ebs_volume" "eight" {
+resource "aws_ebs_volume" "seven" {
  availability_zone = "eu-west-1a"
   size = 10
   tags = {
