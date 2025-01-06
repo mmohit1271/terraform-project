@@ -1,6 +1,6 @@
 resource "aws_elb" "bar" {
   name               = "prashant-terraform-elb"
-  availability_zones = ["ap-south-1a", "ap-south-1b"]
+  availability_zones = ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
 
   listener {
     instance_port     = 80
@@ -17,7 +17,7 @@ resource "aws_elb" "bar" {
     interval            = 30
   }
 
-  instances                 = ["${aws_instance.one.id}", "${aws_instance.two.id}"]
+  instances                 = ["${aws_instance.one.id}", "${aws_instance.two.id}", "${aws_instance.three.id}", "${aws_instance.four.id}"]
   cross_zone_load_balancing = true
   idle_timeout              = 400
   tags = {
