@@ -85,11 +85,6 @@ resource "aws_security_group" "five" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-resource "aws_s3_bucket" "six" {
-  bucket = "mohit12demoprojectofterraform-integration-12"
-}
-
 resource "aws_iam_user" "seven" {
 for_each = var.user_names
 name = each.value
