@@ -1,20 +1,20 @@
 provider "aws" {
-region = "ap-south-1"
+region = "eu-west-1"
 }
 
 resource "aws_instance" "one" {
-  ami             = "ami-0fd05997b4dff7aac"
+  ami             = "ami-0a094c309b87cc107"
   instance_type   = "t2.micro"
-  key_name        = "server"
+  key_name        = "serverwest"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1a"
+  availability_zone = "eu-west-1a"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
 yum install httpd -y
 systemctl start httpd
 chkconfig httpd on
-echo "hai all this is my app created by terraform infrastructurte by prashant sir server-1" > /var/www/html/index.html
+echo "hai all this is my app created by terraform infrastructurte by Mohit on server-1" > /var/www/html/index.html
 EOF
   tags = {
     Name = "web-server-1"
@@ -22,18 +22,18 @@ EOF
 }
 
 resource "aws_instance" "two" {
-  ami             = "ami-0fd05997b4dff7aac"
+  ami             = "ami-0a094c309b87cc107"
   instance_type   = "t2.micro"
-  key_name        = "server"
+  key_name        = "serverwest"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1a"
+  availability_zone = "eu-west-1b"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
 yum install httpd -y
 systemctl start httpd
 chkconfig httpd on
-echo "hai all this is my website created by terraform infrastructurte by prashant sir server-2" > /var/www/html/index.html
+echo "hai all this is my website created by terraform infrastructurte by Mohit on server-2" > /var/www/html/index.html
 EOF
   tags = {
     Name = "web-server-2"
@@ -41,22 +41,22 @@ EOF
 }
 
 resource "aws_instance" "three" {
-  ami             = "ami-0fd05997b4dff7aac"
+  ami             = "ami-0a094c309b87cc107"
   instance_type   = "t2.micro"
-  key_name        = "server"
+  key_name        = "serverwest"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1a"
+  availability_zone = "eu-west-1a"
   tags = {
     Name = "app-server-1"
   }
 }
 
 resource "aws_instance" "four" {
-  ami             = "ami-0fd05997b4dff7aac"
+  ami             = "ami-0a094c309b87cc107"
   instance_type   = "t2.micro"
-  key_name        = "server"
+  key_name        = "serverwest"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1a"
+  availability_zone = "eu-west-1b"
   tags = {
     Name = "app-server-2"
   }
@@ -102,7 +102,7 @@ default = ["mohit1", "rohit1"]
 }
 
 resource "aws_ebs_volume" "eight" {
- availability_zone = "ap-south-1a"
+ availability_zone = "eu-west-1a"
   size = 10
   tags = {
     Name = "terraform1-001"
